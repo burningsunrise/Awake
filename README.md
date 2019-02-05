@@ -22,8 +22,12 @@ Required python packages:
 
 ## Installation
 
+`git clone git@gitlab.com:burningsunrise/awake.git`
+
 `cd awake/`
+
 `pip install -r requirements.txt`
+
 `python awake.py OR ./awake.py`
 
 ## Issues
