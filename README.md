@@ -29,8 +29,11 @@ Required python packages:
 ## Installation
 
 Download or clone
+
 `download https://gitlab.com/burningsunrise/awake/-/archive/master/awake-master.zip`
+
 or
+
 `git clone https://gitlab.com/burningsunrise/awake.git`
 
 `cd awake/`
