@@ -8,6 +8,10 @@ from bs4 import BeautifulSoup
 import urllib.request, datetime
 import os
 import ast
+import readline
+
+
+names = []
 
 
 def simple_get(url):
@@ -22,14 +26,17 @@ def simple_get(url):
         log_error('Error during requests to {0} : {1}'.format(url, str(e)))
         return None
 
+
 def is_good_response(resp):
     content_type = resp.headers['Content-Type'].lower()
     return(resp.status_code == 200
             and content_type is not None
             and content_type.find('html') > -1)
 
+
 def log_error(e):
     print(e)
+
 
 def new_stats(hero_html, hero):
     html = simple_get(hero_html)
@@ -70,10 +77,22 @@ def compare_cards(player_cards, hero_cards):
     return result
 
 
+def auto_comp(text, state):
+    global names
+    options = [x for x in names if x.lower().startswith(text.lower())]
+    try:
+        return options[state]
+    except IndexError:
+        return None
+
+
 def work(hero, color):
     player_cards = []
+    global names
     with open(hero+'/'+hero+'.txt', 'r') as f:
         hero_cards = [ast.literal_eval(line.strip()) for line in f]
+    for i in range(len(hero_cards)):
+        names.append(hero_cards[i][0])
     while True:
         try:
             num_cards = int(input('How many cards are we comparing?: '))
@@ -81,6 +100,8 @@ def work(hero, color):
             print("Sorry that wasn't a number, try again.")
         else:
             break
+    readline.set_completer(auto_comp)
+    readline.parse_and_bind("tab: complete")
     for i in range(num_cards):
         player_cards.append(input("Please Enter Card ["+str(i+1)+"]: "))
     result = compare_cards(player_cards, hero_cards)
