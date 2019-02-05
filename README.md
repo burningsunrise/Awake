@@ -22,9 +22,9 @@ Required python packages:
 
 ## Installation
 
-cd awake/
-pip install -r requirements.txt
-python awake.py OR ./awake.py
+`cd awake/`
+`pip install -r requirements.txt`
+`python awake.py OR ./awake.py`
 
 ## Issues
 
