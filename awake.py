@@ -141,24 +141,19 @@ def main():
                 print("Not a hero try again!")
 
         hero_html = 'https://spirelogs.com/stats/'+hero+'/card-choices.php'
-        if os.path.isfile(hero+'/'+hero+'.txt'):
-            if os.path.isfile(hero+'/'+hero+'_last_check.txt'):
-                try:
-                    with open(hero+'/'+hero+'_last_check.txt') as f:
-                        lines = f.readlines()
-                    last_check = convert(lines[0])
-                    one_day = datetime.datetime.now() - last_check
-                    if one_day.days > 1:
-                        new_stats(hero_html, hero)
-                        work(hero, color)
-                    else:
-                        work(hero, color)
-
-                except Exception as e:
-                    print(e)
-            else:
-                new_stats(hero_html, hero)
-                work(hero, color)
+        if os.path.isfile(hero+'/'+hero+'.txt') and os.path.isfile(hero+'/'+hero+'_last_check.txt'):
+            try:
+                with open(hero+'/'+hero+'_last_check.txt') as f:
+                    lines = f.readlines()
+                last_check = convert(lines[0])
+                one_day = datetime.datetime.now() - last_check
+                if one_day.days > 1:
+                    new_stats(hero_html, hero)
+                    work(hero, color)
+                else:
+                    work(hero, color)
+            except Exception as e:
+                print(e)
         else:
             new_stats(hero_html, hero)
             work(hero, color)
